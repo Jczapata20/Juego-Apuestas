@@ -23,10 +23,14 @@
             <div id="scores-table"></div>
 
             <button onclick="nextRound()">Siguiente Ronda</button>
+            <!-- Botón para corregir (borrar) las puntuaciones de la ronda actual -->
+            <button onclick="clearCurrentScores()">Corregir</button>
         </div>
         <div id="result-section" style="display: none;">
             <h2>Resultados Finales</h2>
             <div id="final-results"></div>
+            <button onclick="restartGame()">Reiniciar Juego</button>
+            <button onclick="correctData()">Corregir Datos</button>
         </div>
     </div>
 
