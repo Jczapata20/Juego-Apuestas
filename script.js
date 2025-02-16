@@ -1,20 +1,13 @@
 let numPlayers, players = [], currentRound = 1, totalRounds = 12, playerScores = [], roundNames = [];
-let betNumbers = [], betResults = [], roundsWon = [];
+let betNumbers = [], betResults = [], roundsWon = [], betsWon = [], betsLost = [];
 let currentPlayer = 0; // Variable para llevar el control del turno
+let startTime;
 
-// Mostrar la pantalla inicial
-function showWelcomeScreen() {
-    document.getElementById('welcome-screen').style.display = 'block';
-    document.getElementById('game-section').style.display = 'none';
-    document.getElementById('result-section').style.display = 'none';
-}
-
-// Iniciar el juego después de ingresar el número de jugadores
 function startGame() {
     numPlayers = document.getElementById('numPlayers').value;
 
-    if (numPlayers < 1 || numPlayers > 10) {
-        alert("Por favor ingresa una cantidad válida de jugadores (1-10).");
+    if (numPlayers < 1) {
+        alert("Por favor ingresa una cantidad válida de jugadores.");
         return;
     }
 
@@ -25,8 +18,9 @@ function startGame() {
         playerScores.push(0);
     }
 
-    // Ocultar la pantalla de bienvenida y mostrar el juego
-    document.getElementById('welcome-screen').style.display = 'none';
+    startTime = new Date(); // Almacenar la hora de inicio del juego
+
+    document.getElementById('input-section').style.display = 'none';
     document.getElementById('game-section').style.display = 'block';
     
     roundNames = [];
@@ -37,20 +31,17 @@ function startGame() {
     showRoundInfo();
 }
 
-// Mostrar la información de la ronda
 function showRoundInfo() {
-    // Mostrar el turno del jugador actual en la parte superior de la ronda
-    document.getElementById('round-info').innerHTML = `
-        <h3>${roundNames[currentRound - 1]}</h3>
-        <p><strong>Turno de: ${players[currentPlayer]}</strong></p>
-    `;
+    document.getElementById('round-info').innerHTML = 
+        `<h3>${roundNames[currentRound - 1]}</h3>
+        <p><strong>Turno de: ${players[currentPlayer]}</strong></p>`;
 
-    document.getElementById('players-section').innerHTML = players.map((player, index) => `
-        <div class="player-bet-container">
+    document.getElementById('players-section').innerHTML = players.map((player, index) => 
+        `<div class="player-bet-container">
             <label for="bet-${index}" class="bet-label">${player} - Número de Apuesta: </label>
             <input type="number" id="bet-${index}" class="bet-input" placeholder="Número de Apuesta" min="0" required />
-        </div>
-    `).join('');
+        </div>`
+    ).join('');
 
     document.getElementById('players-section').innerHTML += `<button onclick="saveBets()" class="bet-button">Guardar Apuestas</button>`;
 }
@@ -68,25 +59,22 @@ function saveBets() {
 
     let betList = `<h4 class="bet-title">Números de Apuesta:</h4><div class="bet-list">`;
     for (let i = 0; i < numPlayers; i++) {
-        betList += `
-            <div class="bet-item">
+        betList += 
+            `<div class="bet-item">
                 <span class="bet-player">${players[i]}:</span>
                 <span class="bet-number">${betNumbers[i]}</span>
-            </div>
-        `;
+            </div>`;
     }
     betList += `</div>`;
 
     document.getElementById('players-section').innerHTML = betList;
 
     setTimeout(() => {
-        // Después de guardar las apuestas, mostrar el turno del jugador actual
-        document.getElementById('round-info').innerHTML = `
-            <h3>${roundNames[currentRound - 1]}</h3>
-            <p><strong>Turno de: ${players[currentPlayer]}</strong></p>
-        `;
-        document.getElementById('players-section').innerHTML += players.map((player, index) => `
-            <div>
+        document.getElementById('round-info').innerHTML = 
+            `<h3>${roundNames[currentRound - 1]}</h3>
+            <p><strong>Turno de: ${players[currentPlayer]}</strong></p>`;
+        document.getElementById('players-section').innerHTML += players.map((player, index) => 
+            `<div>
                 <label for="bet-result-${index}">${player} - ¿Ganó la apuesta?: </label>
                 <select id="bet-result-${index}">
                     <option value="yes">Sí</option>
@@ -96,13 +84,12 @@ function saveBets() {
             <div>
                 <label for="rounds-won-${index}">${player} - ¿Cuántas rondas ganó?: </label>
                 <input type="number" id="rounds-won-${index}" min="0" placeholder="Rondas ganadas" />
-            </div>
-        `).join('');
+            </div>`
+        ).join('');
         document.getElementById('players-section').innerHTML += `<button onclick="applyResults()" class="result-button">Aplicar Resultados</button>`;
     }, 2000);
 }
 
-// Función que aplica los resultados y sigue con la siguiente ronda
 function applyResults() {
     betResults = [];
     roundsWon = [];
@@ -121,8 +108,10 @@ function applyResults() {
 
         if (betResult === 'yes') {
             playerScores[i] += 10;
+            betsWon[i] = (betsWon[i] || 0) + 1;
         } else {
             playerScores[i] -= 10;
+            betsLost[i] = (betsLost[i] || 0) + 1;
         }
 
         playerScores[i] += roundsWon[i] * 3;
@@ -132,7 +121,7 @@ function applyResults() {
 
     if (currentRound < totalRounds) {
         currentRound++;
-        currentPlayer = (currentPlayer + 1) % numPlayers; // Pasar al siguiente jugador
+        currentPlayer = (currentPlayer + 1) % numPlayers;
         showRoundInfo();
     } else {
         showResults();
@@ -147,37 +136,43 @@ function updateScoresTable() {
 
     playersWithScores.sort((a, b) => b.score - a.score);
 
-    let tableHTML = `
-        <table border="1">
+    let tableHTML = 
+        `<table border="1">
             <thead>
                 <tr>
                     <th>Jugador</th>
                     <th>Puntuación Acumulada</th>
                 </tr>
             </thead>
-            <tbody>
-    `;
-
+            <tbody>`;
     for (let i = 0; i < playersWithScores.length; i++) {
-        tableHTML += `
-            <tr>
+        tableHTML += 
+            `<tr>
                 <td>${playersWithScores[i].player}</td>
                 <td>${playersWithScores[i].score}</td>
-            </tr>
-        `;
+            </tr>`;
     }
-
-    tableHTML += `
-            </tbody>
-        </table>
-    `;
+    tableHTML += `</tbody></table>`;
 
     document.getElementById('scores-table').innerHTML = tableHTML;
 }
 
 function showResults() {
     document.getElementById('game-section').style.display = 'none';
-    document.getElementById('result-section').style.display = 'block';
+    let resultSection = document.getElementById('result-section');
+    resultSection.style.display = 'block';
+
+    // Agregar la clase de animación de desvanecimiento al resultado
+    resultSection.classList.add('fade-in');
+
+    let endTime = new Date(); 
+    let duration = endTime - startTime;
+
+    let hours = Math.floor(duration / (1000 * 60 * 60));
+    let minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((duration % (1000 * 60)) / 1000);
+
+    let durationString = `${hours} horas, ${minutes} minutos, ${seconds} segundos`;
 
     let sortedScores = [...playerScores];
     let sortedPlayers = [...players];
@@ -195,10 +190,22 @@ function showResults() {
         results.push(`<p>${i + 1}º puesto: ${sortedPlayers[i]} - ${sortedScores[i]} puntos</p>`);
     }
 
-    document.getElementById('final-results').innerHTML = `
-        <h3>¡Felicidades! El ganador es: ${winner} (${maxScore} puntos)</h3>
+    // Determinar quién ganó más apuestas y quién perdió más
+    let maxBetsWon = Math.max(...betsWon);
+    let minBetsLost = Math.min(...betsLost);
+
+    let playerMaxBetsWon = players[betsWon.indexOf(maxBetsWon)];
+    let playerMinBetsLost = players[betsLost.indexOf(minBetsLost)];
+
+    // Mostrar los resultados
+    let finalResults = 
+        `<h3 class="zoom-in">¡Felicidades! El ganador es: ${winner} (${maxScore} puntos)</h3>
         ${results.join('')}
-    `;
+        <p>Duración del juego: ${durationString}</p>
+        <p>Jugador que ganó más apuestas: ${playerMaxBetsWon} (${maxBetsWon} apuestas ganadas)</p>
+        <p>Jugador que perdió más apuestas: ${playerMinBetsLost} (${minBetsLost} apuestas perdidas)</p>`;
+
+    document.getElementById('final-results').innerHTML = finalResults;
 }
 
 function restartGame() {
@@ -206,10 +213,7 @@ function restartGame() {
 }
 
 function correctData() {
-    document.getElementById('welcome-screen').style.display = 'block';
+    document.getElementById('input-section').style.display = 'block';
     document.getElementById('game-section').style.display = 'none';
     document.getElementById('result-section').style.display = 'none';
 }
-
-showWelcomeScreen(); // Asegurarse de que la primera pantalla se muestre
-    
