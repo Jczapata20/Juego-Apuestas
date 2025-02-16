@@ -212,3 +212,4 @@ function correctData() {
 }
 
 showWelcomeScreen(); // Asegurarse de que la primera pantalla se muestre
+    
