@@ -129,6 +129,16 @@ function applyResults() {
 }
 
 function updateScoresTable() {
+    // Crear una lista de jugadores y sus puntajes
+    let playersWithScores = [];
+    for (let i = 0; i < numPlayers; i++) {
+        playersWithScores.push({ player: players[i], score: playerScores[i] });
+    }
+
+    // Ordenar la lista por puntaje de mayor a menor
+    playersWithScores.sort((a, b) => b.score - a.score);
+
+    // Construir la tabla con los jugadores ordenados
     let tableHTML = `
         <table border="1">
             <thead>
@@ -140,11 +150,11 @@ function updateScoresTable() {
             <tbody>
     `;
 
-    for (let i = 0; i < numPlayers; i++) {
+    for (let i = 0; i < playersWithScores.length; i++) {
         tableHTML += `
             <tr>
-                <td>${players[i]}</td>
-                <td>${playerScores[i]}</td>
+                <td>${playersWithScores[i].player}</td>
+                <td>${playersWithScores[i].score}</td>
             </tr>
         `;
     }
