@@ -3,45 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego La Apuesta</title>
+    <title>Juego de Puntuaciones</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Barra de creadores (ahora con enlaces a Instagram) -->
+    <div id="creators-bar">
+        <a href="https://www.instagram.com/juancruz_marin96/" target="_blank"><span>Juan Cruz Marin</span></a>
+        <a href="https://www.instagram.com/lourdesfalconn/" target="_blank"><span>Lourdes Falcon</span></a>
+        <a href="https://www.instagram.com/martii_marin/" target="_blank"><span>Martina Marin</span></a>
+        <a href="https://www.instagram.com/rocio_marin98/" target="_blank"><span>Rocio Marin</span></a>
+        <a href="https://www.instagram.com/marinheben/" target="_blank"><span>Heben Marin</span></a>
+        <a href="https://www.instagram.com/estebanmarinok/" target="_blank"><span>Esteban Marin</span></a>
+    </div>
+
     <div class="container">
-        <!-- Primera pantalla: Bienvenida y cantidad de jugadores -->
-        <div id="welcome-screen">
-            <h1>Bienvenido al Juego de La Apuesta</h1>
-            <p>Por favor, ingresa la cantidad de jugadores (1-10):</p>
-            <input type="number" id="numPlayers" min="1" max="10" required>
+        <h1>Juego de Puntuaciones</h1>
+        <div id="input-section">
+            <label for="numPlayers">Ingrese la cantidad de jugadores:</label>
+            <input type="number" id="numPlayers" min="1" max="100" required>
             <button onclick="startGame()">Iniciar Juego</button>
         </div>
-
-        <!-- Segunda pantalla: Juego -->
         <div id="game-section" style="display: none;">
             <h2>Rondas</h2>
             <div id="round-info"></div>
             <div id="players-section"></div>
-            <button onclick="nextRound()">Siguiente Ronda</button>
-            <button onclick="correctData()">Corregir Datos</button>
-        </div>
 
-        <!-- Tercera pantalla: Resultados -->
+            <!-- Aquí agregamos el contenedor de la tabla de puntuaciones -->
+            <div id="scores-table"></div>
+
+            <button onclick="nextRound()">Siguiente Ronda</button>
+            <!-- Botón para corregir (borrar) las puntuaciones de la ronda actual -->
+        </div>
         <div id="result-section" style="display: none;">
             <h2>Resultados Finales</h2>
             <div id="final-results"></div>
             <button onclick="restartGame()">Reiniciar Juego</button>
-            <button onclick="correctData()">Corregir Datos</button>
         </div>
-    </div>
-
-    <!-- Barra de creadores -->
-    <div id="creators-bar">
-        <span class="creator">Juan Cruz Marin</span>
-        <span class="creator">Lourdes Falcon</span>
-        <span class="creator">Martina Marin</span>
-        <span class="creator">Rocio Marin</span>
-        <span class="creator">Heben Marin</span>
-        <span class="creator">Esteban Marin</span>
     </div>
 
     <script src="script.js"></script>
