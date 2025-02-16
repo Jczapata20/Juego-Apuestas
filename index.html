@@ -1,31 +1,33 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Puntuaciones</title>
+    <title>Juego La Apuesta</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Juego de Puntuaciones</h1>
-        <div id="input-section">
-            <label for="numPlayers">Ingrese la cantidad de jugadores:</label>
-            <input type="number" id="numPlayers" min="1" max="100" required>
+        <!-- Primera pantalla: Bienvenida y cantidad de jugadores -->
+        <div id="welcome-screen">
+            <h1>Bienvenido al Juego de La Apuesta</h1>
+            <p>Por favor, ingresa la cantidad de jugadores:</p>
+            <input type="number" id="numPlayers" min="1" max="10" required>
             <button onclick="startGame()">Iniciar Juego</button>
         </div>
+
+        <!-- Segunda pantalla: Juego -->
         <div id="game-section" style="display: none;">
             <h2>Rondas</h2>
             <div id="round-info"></div>
             <div id="players-section"></div>
-
-            <!-- Aquí agregamos el contenedor de la tabla de puntuaciones -->
-            <div id="scores-table"></div>
-
             <button onclick="nextRound()">Siguiente Ronda</button>
-            <!-- Botón para corregir (borrar) las puntuaciones de la ronda actual -->
             <button onclick="clearCurrentScores()">Corregir</button>
         </div>
+
+        <!-- Tercera pantalla: Resultados -->
         <div id="result-section" style="display: none;">
             <h2>Resultados Finales</h2>
             <div id="final-results"></div>
@@ -34,7 +36,16 @@
         </div>
     </div>
 
+    <!-- Barra de creadores con estilo más pequeño y armonioso -->
+    <div id="creators-bar">
+        <span class="creator">Juan Cruz Marin</span>
+        <span class="creator">Lourdes Falcon</span>
+        <span class="creator">Martina Marin</span>
+        <span class="creator">Rocio Marin</span>
+        <span class="creator">Heben Marin</span>
+        <span class="creator">Esteban Marin</span>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
-
