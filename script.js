@@ -11,6 +11,9 @@ function startGame() {
         return;
     }
 
+    // Ocultar la barra de creadores al comenzar el juego
+    document.getElementById('creators-bar').style.display = 'none';
+
     players = [];
     for (let i = 0; i < numPlayers; i++) {
         const name = prompt(`Ingresa el nombre del jugador ${i + 1}:`);
@@ -158,6 +161,9 @@ function updateScoresTable() {
 }
 
 function showResults() {
+    // Volver a mostrar la barra de creadores al final
+    document.getElementById('creators-bar').style.display = 'flex';
+
     document.getElementById('game-section').style.display = 'none';
     let resultSection = document.getElementById('result-section');
     resultSection.style.display = 'block';
