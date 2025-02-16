@@ -223,3 +223,13 @@ function correctData() {
     document.getElementById('game-section').style.display = 'none';
     document.getElementById('result-section').style.display = 'none';
 }
+
+// Mensaje de confirmación al intentar salir o recargar la página
+window.addEventListener('beforeunload', function (e) {
+    var message = "¿Estás seguro de que quieres salir o recargar la página? Los datos no guardados se perderán.";
+
+    // Para que el navegador muestre el mensaje
+    e.returnValue = message;
+
+    return message;
+});
