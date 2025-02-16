@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Barra de creadores (ahora con enlaces a Instagram) -->
+    <div id="creators-bar">
+        <a href="https://www.instagram.com/juancruz_marin96/" target="_blank"><span>Juan Cruz Marin</span></a>
+        <a href="https://www.instagram.com/lourdesfalconn/" target="_blank"><span>Lourdes Falcon</span></a>
+        <a href="https://www.instagram.com/martii_marin/" target="_blank"><span>Martina Marin</span></a>
+        <a href="https://www.instagram.com/rocio_marin98/" target="_blank"><span>Rocio Marin</span></a>
+        <a href="https://www.instagram.com/marinheben/" target="_blank"><span>Heben Marin</span></a>
+        <a href="https://www.instagram.com/estebanmarinok/" target="_blank"><span>Esteban Marin</span></a>
+    </div>
+
     <div class="container">
         <h1>Juego de Puntuaciones</h1>
         <div id="input-section">
@@ -24,13 +34,11 @@
 
             <button onclick="nextRound()">Siguiente Ronda</button>
             <!-- Botón para corregir (borrar) las puntuaciones de la ronda actual -->
-            <button onclick="clearCurrentScores()">Corregir</button>
         </div>
         <div id="result-section" style="display: none;">
             <h2>Resultados Finales</h2>
             <div id="final-results"></div>
             <button onclick="restartGame()">Reiniciar Juego</button>
-            <button onclick="correctData()">Corregir Datos</button>
         </div>
     </div>
 
