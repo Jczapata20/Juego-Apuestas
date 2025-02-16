@@ -43,7 +43,8 @@ function showRoundInfo() {
         `<div class="player-bet-container">
             <label for="bet-${index}" class="bet-label">${player} - Número de Apuesta: </label>
             <input type="number" id="bet-${index}" class="bet-input" placeholder="Número de Apuesta" min="0" required />
-        </div>`).join('');
+        </div>`
+    ).join('');
 
     document.getElementById('players-section').innerHTML += `<button onclick="saveBets()" class="bet-button">Guardar Apuestas</button>`;
 }
@@ -86,7 +87,8 @@ function saveBets() {
             <div>
                 <label for="rounds-won-${index}">${player} - ¿Cuántas rondas ganó?: </label>
                 <input type="number" id="rounds-won-${index}" min="0" placeholder="Rondas ganadas" />
-            </div>`).join('');
+            </div>`
+        ).join('');
         document.getElementById('players-section').innerHTML += `<button onclick="applyResults()" class="result-button">Aplicar Resultados</button>`;
     }, 2000);
 }
@@ -185,3 +187,71 @@ function closePlayerProfile() {
     // Ocultar el modal cuando se cierra
     document.getElementById('profile-modal').style.display = 'none';
 }
+
+function showResults() {
+    // Volver a mostrar la barra de creadores al final
+    document.getElementById('creators-bar').style.display = 'flex';
+
+    document.getElementById('game-section').style.display = 'none';
+    let resultSection = document.getElementById('result-section');
+    resultSection.style.display = 'block';
+
+    // Agregar la clase de animación de desvanecimiento al resultado
+    resultSection.classList.add('fade-in');
+
+    let endTime = new Date(); 
+    let duration = endTime - startTime;
+
+    let hours = Math.floor(duration / (1000 * 60 * 60));
+    let minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((duration % (1000 * 60)) / 1000);
+
+    let durationString = `${hours} horas, ${minutes} minutos, ${seconds} segundos`;
+
+    let sortedScores = [...playerScores];
+    let sortedPlayers = [...players];
+    let results = [];
+
+    sortedScores.sort((a, b) => b - a);
+    sortedPlayers.sort((a, b) => {
+        return playerScores[players.indexOf(b)] - playerScores[players.indexOf(a)];
+    });
+
+    let maxScore = sortedScores[0];
+    let winner = sortedPlayers[0];
+
+    for (let i = 0; i < sortedPlayers.length; i++) {
+        results.push(`<p>${i + 1}º puesto: ${sortedPlayers[i]} - ${sortedScores[i]} puntos</p>`);
+    }
+
+    // Determinar quién ganó más apuestas y quién perdió más
+    let maxBetsWon = Math.max(...betsWon);
+    let winnerBets = players[betsWon.indexOf(maxBetsWon)];
+
+    let minBetsLost = Math.min(...betsLost);
+    let loserBets = players[betsLost.indexOf(minBetsLost)];
+
+    resultSection.innerHTML = `
+        <h2>Resultados Finales</h2>
+        <p><strong>Ganador:</strong> ${winner} - ${maxScore} puntos</p>
+        <p><strong>Duración del Juego:</strong> ${durationString}</p>
+        <h3>Posiciones:</h3>
+        ${results.join('')}
+        <p><strong>Apuesta más ganada:</strong> ${winnerBets}</p>
+        <p><strong>Apuesta más perdida:</strong> ${loserBets}</p>`;
+
+    // Mostrar botón para reiniciar el juego
+    resultSection.innerHTML += `
+        <button onclick="restartGame()">Reiniciar Juego</button>`;
+}
+
+function restartGame() {
+    location.reload(); 
+}
+
+// Agregar el cartel de confirmación al intentar refrescar la página
+window.addEventListener('beforeunload', function (e) {
+    var message = '¿Estás seguro de que quieres abandonar la página? Los cambios no guardados se perderán.';
+    e.returnValue = message; // Chrome, Firefox, IE
+    return message;          // Safari
+});
