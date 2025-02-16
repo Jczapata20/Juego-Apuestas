@@ -1,6 +1,6 @@
-
-let numPlayers, players = [], currentRound = 1, totalRounds = 12, playerScores = [], roundNames = []; 
+let numPlayers, players = [], currentRound = 1, totalRounds = 12, playerScores = [], roundNames = [];
 let betNumbers = [], betResults = [], roundsWon = [];
+let currentPlayer = 0; // Variable para llevar el control del turno
 
 function startGame() {
     numPlayers = document.getElementById('numPlayers').value;
@@ -29,7 +29,11 @@ function startGame() {
 }
 
 function showRoundInfo() {
-    document.getElementById('round-info').innerHTML = `<h3>${roundNames[currentRound - 1]}</h3>`;
+    // Mostrar el turno del jugador actual en la parte superior de la ronda
+    document.getElementById('round-info').innerHTML = `
+        <h3>${roundNames[currentRound - 1]}</h3>
+        <p><strong>Turno de: ${players[currentPlayer]}</strong></p>
+    `;
 
     document.getElementById('players-section').innerHTML = players.map((player, index) => `
         <div class="player-bet-container">
@@ -66,7 +70,11 @@ function saveBets() {
     document.getElementById('players-section').innerHTML = betList;
 
     setTimeout(() => {
-        document.getElementById('round-info').innerHTML = `<h3>${roundNames[currentRound - 1]}</h3>`;
+        // Después de guardar las apuestas, mostrar el turno del jugador actual
+        document.getElementById('round-info').innerHTML = `
+            <h3>${roundNames[currentRound - 1]}</h3>
+            <p><strong>Turno de: ${players[currentPlayer]}</strong></p>
+        `;
         document.getElementById('players-section').innerHTML += players.map((player, index) => `
             <div>
                 <label for="bet-result-${index}">${player} - ¿Ganó la apuesta?: </label>
@@ -113,6 +121,7 @@ function applyResults() {
 
     if (currentRound < totalRounds) {
         currentRound++;
+        currentPlayer = (currentPlayer + 1) % numPlayers; // Pasar al siguiente jugador
         showRoundInfo();
     } else {
         showResults();
@@ -183,6 +192,7 @@ function correctData() {
     document.getElementById('game-section').style.display = 'none';
     document.getElementById('result-section').style.display = 'none';
 }
+
 
  
    
