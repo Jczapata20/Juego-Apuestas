@@ -25,7 +25,6 @@
             <button onclick="startGame()">Iniciar Juego</button>
         </div>
         <div id="game-section" style="display: none;">
-        
             <div id="round-info"></div>
             <div id="players-section"></div>
 
@@ -33,12 +32,19 @@
             <div id="scores-table"></div>
 
             <button onclick="nextRound()">Siguiente Ronda</button>
-            <!-- Botón para corregir (borrar) las puntuaciones de la ronda actual -->
         </div>
         <div id="result-section" style="display: none;">
             <h2>Resultados Finales</h2>
             <div id="final-results"></div>
             <button onclick="restartGame()">Reiniciar Juego</button>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar el perfil del jugador -->
+    <div id="profile-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <!-- El contenido del perfil se generará dinámicamente con JavaScript -->
+            <button class="close-btn" onclick="closePlayerProfile()">Cerrar</button>
         </div>
     </div>
 
