@@ -2,11 +2,19 @@ let numPlayers, players = [], currentRound = 1, totalRounds = 12, playerScores =
 let betNumbers = [], betResults = [], roundsWon = [];
 let currentPlayer = 0; // Variable para llevar el control del turno
 
+// Mostrar la pantalla inicial
+function showWelcomeScreen() {
+    document.getElementById('welcome-screen').style.display = 'block';
+    document.getElementById('game-section').style.display = 'none';
+    document.getElementById('result-section').style.display = 'none';
+}
+
+// Iniciar el juego después de ingresar el número de jugadores
 function startGame() {
     numPlayers = document.getElementById('numPlayers').value;
 
-    if (numPlayers < 1) {
-        alert("Por favor ingresa una cantidad válida de jugadores.");
+    if (numPlayers < 1 || numPlayers > 10) {
+        alert("Por favor ingresa una cantidad válida de jugadores (1-10).");
         return;
     }
 
@@ -17,7 +25,8 @@ function startGame() {
         playerScores.push(0);
     }
 
-    document.getElementById('input-section').style.display = 'none';
+    // Ocultar la pantalla de bienvenida y mostrar el juego
+    document.getElementById('welcome-screen').style.display = 'none';
     document.getElementById('game-section').style.display = 'block';
     
     roundNames = [];
@@ -28,6 +37,7 @@ function startGame() {
     showRoundInfo();
 }
 
+// Mostrar la información de la ronda
 function showRoundInfo() {
     // Mostrar el turno del jugador actual en la parte superior de la ronda
     document.getElementById('round-info').innerHTML = `
@@ -92,6 +102,7 @@ function saveBets() {
     }, 2000);
 }
 
+// Función que aplica los resultados y sigue con la siguiente ronda
 function applyResults() {
     betResults = [];
     roundsWon = [];
@@ -129,16 +140,13 @@ function applyResults() {
 }
 
 function updateScoresTable() {
-    // Crear una lista de jugadores y sus puntajes
     let playersWithScores = [];
     for (let i = 0; i < numPlayers; i++) {
         playersWithScores.push({ player: players[i], score: playerScores[i] });
     }
 
-    // Ordenar la lista por puntaje de mayor a menor
     playersWithScores.sort((a, b) => b.score - a.score);
 
-    // Construir la tabla con los jugadores ordenados
     let tableHTML = `
         <table border="1">
             <thead>
@@ -198,11 +206,9 @@ function restartGame() {
 }
 
 function correctData() {
-    document.getElementById('input-section').style.display = 'block';
+    document.getElementById('welcome-screen').style.display = 'block';
     document.getElementById('game-section').style.display = 'none';
     document.getElementById('result-section').style.display = 'none';
 }
 
-
- 
-   
+showWelcomeScreen(); // Asegurarse de que la primera pantalla se muestre
