@@ -6,8 +6,8 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #e3f2fd; /* Azul claro */
+    font-family: 'Poppins', sans-serif;
+    background-color: #e3f2fd;
     color: #333;
     display: flex;
     justify-content: center;
@@ -30,15 +30,15 @@ body {
 
 /* --- CABECERA FIJA PARA TURNOS Y RONDAS --- */
 #round-info {
-    background: #0277bd; /* Azul oscuro */
+    background: #0277bd;
     color: white;
     text-align: center;
-    padding: 12px;
-    font-size: 18px;
-    font-weight: bold;
+    padding: 8px;
+    font-size: 16px;
+    font-weight: 600;
     width: 100%;
     max-width: 600px;
-    border-bottom: 4px solid #ff8f00; /* Naranja */
+    border-bottom: 4px solid #ff8f00;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -53,12 +53,18 @@ body {
     border: 2px solid #ddd;
     border-radius: 8px;
     background: #ffffff;
+    padding-top: 50px; /* Ajuste para evitar que el primer jugador se oculte */
+}
+
+.player-bet-container:first-child {
+    margin-top: 50px; /* Evita que el primer jugador quede oculto */
 }
 
 /* --- TITULOS --- */
 h1 {
     color: #0277bd;
-    font-size: 1.8rem;
+    font-size: 2rem;
+    font-weight: 700;
     margin-bottom: 20px;
 }
 
@@ -70,6 +76,7 @@ input, select {
     border-radius: 5px;
     border: 1px solid #ccc;
     margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
 }
 
 button {
@@ -80,20 +87,13 @@ button {
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
+    font-weight: 600;
     transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
     background-color: #ff6f00;
     transform: scale(1.05);
-}
-
-/* --- MENSAJE DE QUIÉN REPARTE --- */
-#dealer-info {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #d32f2f;
-    margin: 10px 0;
 }
 
 /* --- TABLA DE PUNTUACIONES --- */
@@ -104,6 +104,7 @@ table {
     background: #ffffff;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
     border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
 }
 
 table, th, td {
@@ -118,6 +119,7 @@ th, td {
 th {
     background-color: #0277bd;
     color: white;
+    font-weight: 600;
 }
 
 /* --- SECCIÓN DE RESULTADOS --- */
@@ -141,38 +143,38 @@ th {
     background-color: #0277bd;
     color: white;
     font-size: 1rem;
-    border-top: 2px solid #ff8f00; /* Naranja */
+    border-top: 2px solid #ff8f00;
 }
 
 /* --- NOMBRES DE LOS CREADORES --- */
 #creators-bar {
     position: fixed;
-    bottom: 0; /* Cambiar top por bottom para que esté en la parte inferior */
+    bottom: 0;
     width: 100%;
     background-color: #ffffff;
     padding: 12px 0;
     text-align: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 999;
-    display: flex; /* Usar flexbox */
-    justify-content: center; /* Centrar los elementos */
-    flex-wrap: wrap; /* Asegurar que se acomoden en múltiples líneas si es necesario */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 #creators-bar a {
-    text-decoration: none; /* Eliminar subrayado */
+    text-decoration: none;
 }
 
 #creators-bar span {
     margin: 0 10px;
     font-size: 1rem;
-    color: #0277bd; /* Azul claro */
+    color: #0277bd;
     font-weight: 500;
     transition: color 0.3s;
 }
 
 #creators-bar span:hover {
-    color: #ff8f00; /* Naranja al pasar el ratón */
+    color: #ff8f00;
 }
 
 /* --- ESTILOS RESPONSIVOS PARA CELULARES --- */
@@ -183,7 +185,7 @@ th {
     .container {
         padding: 15px;
         max-width: 100%;
-    }   
+    }
     h1 {
         font-size: 1.5rem;
     }
@@ -197,11 +199,10 @@ th {
         font-size: 0.9rem;
     }
     #creators-bar {
-        padding: 8px 0; /* Reducir el padding en móviles */
+        padding: 8px 0;
     }
-
     #creators-bar span {
-        font-size: 0.9rem; /* Reducir el tamaño de los textos */
-        margin: 5px 8px; /* Ajustar el espacio entre los nombres */
+        font-size: 0.9rem;
+        margin: 5px 8px;
     }
 }
